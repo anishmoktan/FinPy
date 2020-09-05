@@ -2,4 +2,9 @@
 #I will be using formulas from Financial Mathematics Actuarial Science exam as reference 
 #First I will use the terminal for calculations then create a front end to create a working website 
 
-principal  = input("Please enter the initial investment ")
+principal  = int(input("Please enter the initial investment: "))
+interest = int(input("Please enter the interest rate: "))
+term = int(input("Please enter the length of your loan: "))
+
+print(principal,interest,term)
+
