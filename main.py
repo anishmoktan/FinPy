@@ -7,4 +7,5 @@ interest = int(input("Please enter the interest rate: "))
 term = int(input("Please enter the length of your loan: "))
 
 print(principal,interest,term)
+print(principal*interest)
 
