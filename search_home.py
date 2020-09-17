@@ -2,8 +2,6 @@ import json
 import requests
 import zillow
 
-key = X1-ZWz170bz3q85qj_9bpwi
-
 
 class Search_Home:
   def __init__(self,name):
