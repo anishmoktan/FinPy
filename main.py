@@ -4,6 +4,7 @@
 
 #Import classes from other files 
 #Use Flask to connect to front end.
+# We're going to make the user input the down payment of the home and then the total loan to predict the monthly mortgage payments
 
 
 principal  = int(input("Please enter the initial investment: "))
