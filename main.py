@@ -31,24 +31,24 @@ def login():
     else:
         return {"message":"You've successfully signed in to your account", "data": user_data.__dict__ } , 200
 
-@app.route('/search-photo', methods=['POST'])
-@ cross_origin()
-def search_photo():
-    data = request.get_json()
-    username, password, search_term = data["username"], data["password"], data["searchTerm"]
-    account_not_found, user_data = project.sign_in(username, password)
+# @app.route('/search-photo', methods=['POST'])
+# @ cross_origin()
+# def search_photo():
+#     data = request.get_json()
+#     username, password, search_term = data["username"], data["password"], data["searchTerm"]
+#     account_not_found, user_data = project.sign_in(username, password)
     
-    if account_not_found:
-        return {"message":"The username of the password you've entered in incorrect, please try again"}, 400 #error
-    else:
-        sign_in = Sign_In_Page(user_data,project.accountDict)
-        search_result = sign_in.search_photo(search_term)
-        if len(search_result) > 0:
-            return {"message": "We found the photo you were looking for",
-                    "photos": search_result
-                    } , 200
-        else:
-            return {"message": "Did not find the photo you were looking for"}, 400
+#     if account_not_found:
+#         return {"message":"The username of the password you've entered in incorrect, please try again"}, 400 #error
+#     else:
+#         sign_in = Sign_In_Page(user_data,project.accountDict)
+#         search_result = sign_in.search_photo(search_term)
+#         if len(search_result) > 0:
+#             return {"message": "We found the photo you were looking for",
+#                     "photos": search_result
+#                     } , 200
+#         else:
+#             return {"message": "Did not find the photo you were looking for"}, 400
 
 @app.route('/save-photo', methods=['POST'])
 @ cross_origin()
