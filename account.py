@@ -5,7 +5,7 @@ class Account():
         self.username = username
         self.password = password
         self.email = email
-        self.loan = loan 
+        self.loan = loan #[{loan1},{loan2},{loan3}]
     
     @classmethod
     def from_json(cls, data):
