@@ -50,7 +50,7 @@ def login():
 #         else:
 #             return {"message": "Did not find the photo you were looking for"}, 400
 
-@app.route('/save-photo', methods=['POST'])
+@app.route('/save-loan', methods=['POST'])
 @ cross_origin()
 def save_photo():
     data = request.get_json()
@@ -72,7 +72,7 @@ def save_photo():
             project.save()
             return {"message": "The photo was successfully saved to the account's gallery!", "data": user_data.__dict__ }  , 200
 
-@app.route('/delete-photo', methods=["POST"])
+@app.route('/delete-loan', methods=["POST"])
 @cross_origin()
 def delete_photo():
     data = request.get_json()
