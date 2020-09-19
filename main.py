@@ -54,6 +54,7 @@ def login():
 @ cross_origin()
 def save_photo():
     data = request.get_json()
+    principal, period, interest_rate = data["principal"], data["period"], data["interest_rate"]
     username, password, photo_url = data["username"], data["password"], data["photoUrl"]
     acount_not_found, user_data = project.sign_in(username, password)
 
