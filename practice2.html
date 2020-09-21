@@ -1,0 +1,112 @@
+<div class="text-center">
+    <h5>Your amortization amount is </h5>
+    <h5 class="text-danger">{{ '{:,.2f}'.format(amortization_amount) }}</h5>
+</div>
+<hr>
+<div class="text-center">
+    <h5>Amortization Schedule</h5>
+</div>
+<table id="table"
+       data-toggle="table"
+       data-pagination="true"
+       data-page-size="6"
+       data-page-list="[6, 12, 24, 60, 120]"
+>
+    <thead>
+    <tr>
+        <th class="text-center">Number</th>
+        <th class="text-center">Amortization</th>
+        <th class="text-center">Interest</th>
+        <th class="text-center">Principal</th>
+        <th class="text-center">Balance</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for number, amount, interest, principal, balance in amortization_schedule %}
+        <tr>
+            <td class="text-center">{{ number }}</td>
+            <td class="text-right">{{ '{:,.2f}'.format(amount) }}</td>
+            <td class="text-right">{{ '{:,.2f}'.format(interest) }}</td>
+            <td class="text-right">{{ '{:,.2f}'.format(principal) }}</td>
+            <td class="text-right">{{ '{:,.2f}'.format(balance) }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<hr>
+<div class="text-center">
+    <h5>Perform another calculation</h5>
+</div>
+{% endif %}
+<form method="POST" action="{{ url_for('amortization_calculator') }}" autocomplete="off">
+{{ form.csrf_token }}
+<div class="row">
+    <div class="col">
+        <div class="form-group has-feedback {{ 'has-error' if form.principal.errors else '' }}">
+            <label for="{{ form.principal.id }}">Principal Amount</label>
+            {{ form.principal(class_='form-control' + (' is-invalid' if form.principal.errors else ''), placeholder='Enter Principal Amount') }}
+            <span class="glyphicon glyphicon-globe form-control-feedback"></span>
+            {% if form.principal.errors %}
+                <div>
+                    <small class="text-danger">{{ form.principal.errors[0] }}</small>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="form-group has-feedback {{ 'has-error' if form.interest_rate.errors else '' }}">
+            <label for="{{ form.interest_rate.id }}">Annual Interest Rate (%)</label>
+            {{ form.interest_rate(class_='form-control' + (' is-invalid' if form.interest_rate.errors else ''), placeholder='Enter Annual Interest Rate') }}
+            <span class="glyphicon glyphicon-globe form-control-feedback"></span>
+            {% if form.interest_rate.errors %}
+                <div>
+                    <small class="text-danger">{{ form.interest_rate.errors[0] }}</small>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="form-group has-feedback {{ 'has-error' if form.period.errors else '' }}">
+            <label for="{{ form.period.id }}">Payment Period in Years</label>
+            {{ form.period(class_='form-control' + (' is-invalid' if form.period.errors else ''), placeholder='Enter Payment Period') }}
+            <span class="glyphicon glyphicon-globe form-control-feedback"></span>
+            {% if form.period.errors %}
+                <div>
+                    <small class="text-danger">{{ form.period.errors[0] }}</small>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="form-group has-feedback {{ 'has-error' if form.frequency.errors else '' }}">
+            <label for="{{ form.frequency.id }}">Payment Frequency</label>
+            {{ form.frequency(class_='form-control' + (' is-invalid' if form.frequency.errors else ''), placeholder='Enter Frequency of Payment') }}
+            <span class="glyphicon glyphicon-globe form-control-feedback"></span>
+            {% if form.frequency.errors %}
+                <div>
+                    <small class="text-danger">{{ form.frequency.errors[0] }}</small>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="form-group has-feedback {{ 'has-error' if form.recaptcha.errors else '' }}">
+    <div class="text-center">
+        {{ form.recaptcha() }}
+    </div>
+    {% if form.recaptcha.errors %}
+        <div class="text-center">
+            <small class="text-danger">{{ form.recaptcha.errors[0] }}</small>
+        </div>
+    {% endif %}
+</div>
+<div class="form-group has-feedback">
+    {{ form.calculate(class_='btn btn-primary btn-block btn-flat') }}
+</div>
+</form>
